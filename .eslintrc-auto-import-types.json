@@ -1,0 +1,6 @@
+{
+  "globals": {
+    "GlobalProperties": true,
+    "App": true
+  }
+}
