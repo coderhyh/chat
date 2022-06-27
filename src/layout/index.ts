@@ -1,4 +1,3 @@
-import Aside from './Aside.vue'
-import Header from './Header.vue'
+import SideMenu from './SideMenu.vue'
 
-export { Aside, Header }
+export { SideMenu }

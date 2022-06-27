@@ -44,15 +44,15 @@ export default defineConfig({
     base: './ ', //生产环境路径
     hmr: true,
     proxy: {
-      '/api': {
-        target: 'https://fastly.jsdelivr.net/gh/apache/echarts-website@asf-site/examples',
+      '/socket-io': {
+        target: 'http://127.0.0.1:5000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        rewrite: (path) => path.replace(/^\/socket-io/, ''),
       },
     },
   },
   // 打包配置
-  /* build: {
+  build: {
     target: 'modules', // 设置最终构建的浏览器兼容目标。modules:支持原生 ES 模块的浏览器
     outDir: 'dist', // 指定输出路径
     sourcemap: false, // 构建后是否生成 source map 文件
@@ -76,7 +76,7 @@ export default defineConfig({
         assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
       },
     }, // 将打包后的资源分开
-  }, */
+  },
   css: {
     // css预处理器
     preprocessorOptions: {

@@ -12,12 +12,13 @@
 
 <script setup lang="ts">
 const value = ref<string>('')
-const user = useStore('user')
+const { setName } = useStore('user')
 const router = useRouter()
 const submit = () => {
-  user.setName(value.value)
+  setName(value.value)
   router.push('/')
 }
+watch(value, (val: string) => (value.value = val.slice(0, 3)))
 </script>
 
 <style lang="less" scoped>

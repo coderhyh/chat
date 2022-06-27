@@ -3,8 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "serve": "vite",
+    "serve": "vite --host",
     "build": "vue-tsc --noEmit && vite build",
+    "test": "vite build --mode test",
     "preview": "vite preview",
     "commit": "git add . && cz",
     "tsc": "vue-tsc --noEmit --skipLibCheck",
@@ -22,6 +23,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.14",
     "pinia-plugin-persist": "^1.0.0",
+    "socket.io-client": "^4.5.1",
     "vue": "^3.2.25",
     "vue-router": "^4.0.16"
   },
@@ -30,6 +32,7 @@
     "@iconify/json": "^2.1.65",
     "@types/node": "^18.0.0",
     "@types/nprogress": "^0.2.0",
+    "@types/socket.io-client": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",
     "@unocss/preset-icons": "^0.39.3",

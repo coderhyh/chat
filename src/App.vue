@@ -11,14 +11,9 @@ import echarts from '~/common/initEcharts'
 const property = getCurrentInstance()?.proxy
 
 provide('echarts', echarts)
-provide('property', property)
+provide('self', property)
 </script>
 
 <style lang="less" scoped>
 // .App {}
-</style>
-<style lang="less">
-html {
-  overflow: hidden;
-}
 </style>
