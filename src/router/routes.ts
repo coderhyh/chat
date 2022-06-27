@@ -9,8 +9,8 @@ export const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '/',
-        name: 'Index',
-        component: () => import('~/views/Index/Index.vue'),
+        name: 'FriendList',
+        component: () => import('~/views/FriendList/FriendList.vue'),
       },
     ],
   },

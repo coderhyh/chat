@@ -5,9 +5,16 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ChatWindow: typeof import('./components/content/ChatWindow/ChatWindow.vue')['default']
     Earth: typeof import('./components/content/Echerts/Earth.vue')['default']
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElInput: typeof import('element-plus/es')['ElInput']
+    ElMenu: typeof import('element-plus/es')['ElMenu']
+    ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     Graph: typeof import('./components/content/Echerts/Graph.vue')['default']
     Icon: typeof import('./components/common/Icon/Icon.vue')['default']
     NewsControl: typeof import('./components/content/NewsControl/NewsControl.vue')['default']

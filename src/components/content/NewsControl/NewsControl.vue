@@ -23,6 +23,9 @@ defineProps<{
   section {
     order: 3;
   }
+  .msg {
+    background: #95ec69 !important;
+  }
 }
 .NewsControl {
   display: flex;
@@ -45,7 +48,7 @@ defineProps<{
     /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
     font-family: '微软雅黑';
     font-size: 16px;
-    color: black;
+    color: #232323;
     letter-spacing: 1px;
     white-space: pre-wrap;
   }

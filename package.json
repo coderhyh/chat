@@ -14,6 +14,7 @@
     "tag": "npm version patch && git push && git push origin --tags"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.0.6",
     "animate.css": "^4.1.1",
     "auto-import-types": "^0.0.4",
     "axios": "^0.27.2",

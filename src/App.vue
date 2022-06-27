@@ -15,5 +15,7 @@ provide('self', property)
 </script>
 
 <style lang="less" scoped>
-// .App {}
+.App {
+  min-width: 860px;
+}
 </style>

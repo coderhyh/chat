@@ -15,11 +15,17 @@ const className = computed(() => {
   return [icon || 'carbon:unknown']
 })
 const icons = [
-  'clarity:dashboard-solid',
-  'ri:treasure-map-fill',
-  'ic:baseline-support-agent',
-  'ic:round-import-contacts',
+  'bxs:message-rounded',
+  'ep:avatar',
+  'material-symbols:collections-bookmark',
+  'material-symbols:screenshot-monitor-outline',
+  'material-symbols:folder-open-rounded',
+  'fontisto:smiley',
 ]
 </script>
 
-<style scoped></style>
+<style lang="less">
+:root {
+  --el-menu-icon-width: auto;
+}
+</style>
