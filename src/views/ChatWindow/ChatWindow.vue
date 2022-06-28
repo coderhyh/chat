@@ -11,6 +11,15 @@
 <script setup lang="ts">
 import ChatNavBar from './children/ChatNavBar.vue'
 import InputBox from './children/InputBox.vue'
+const { initSocket, socket } = useStore('socket')
+initSocket()
+
+socket.value?.on('connect', () => {
+  socket.value?.emit('hehe', '666')
+  socket.value?.on('connectSuccess', (e: string) => {
+    console.log(e)
+  })
+})
 </script>
 
 <style lang="less" scoped>

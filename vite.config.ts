@@ -44,10 +44,10 @@ export default defineConfig({
     base: './ ', //生产环境路径
     hmr: true,
     proxy: {
-      '/socket-io': {
+      '/socketIo': {
         target: 'http://127.0.0.1:5000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/socket-io/, ''),
+        rewrite: (path) => path.replace(/^\/socketIo/, ''),
       },
     },
   },

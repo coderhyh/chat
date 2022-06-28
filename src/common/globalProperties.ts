@@ -1,4 +1,3 @@
-import { io } from 'socket.io-client'
 import { App } from 'vue'
 
 import { $alert, $message } from './utils'
@@ -13,5 +12,3 @@ export default {
     }
   },
 }
-
-export const socket = io(import.meta.env.VITE_SOCKET_BASE_URL)

@@ -2,6 +2,7 @@
 import { AutoToRefs, ToRef } from 'vue'
 
 import appStore from '~/store/app'
+import socketStore from '~/store/socket'
 import userStore from '~/store/user'
 
 declare module 'vue' {
@@ -10,7 +11,7 @@ declare module 'vue' {
   }
 }
 
-const storeExports = { user: userStore, app: appStore }
+const storeExports = { user: userStore, app: appStore, socket: socketStore }
 
 export function useStore<T extends keyof typeof storeExports>(storeName: T) {
   const store = storeExports[storeName]()

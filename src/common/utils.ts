@@ -1,4 +1,5 @@
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { io } from 'socket.io-client'
 
 export function $message(message: string, type: any): any {
   ElMessage({
@@ -18,5 +19,3 @@ export function $alert(text: string, title: string, callback: () => any): any {
     callback,
   })
 }
-
-export const $test = 'test'

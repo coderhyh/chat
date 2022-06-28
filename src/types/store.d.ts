@@ -1,6 +1,6 @@
-// declare namespace App {
-//   interface Tab {
-//     title: string
-//     path: string
-//   }
-// }
+declare namespace App {
+  interface Tab {
+    title: string
+    path: string
+  }
+}
