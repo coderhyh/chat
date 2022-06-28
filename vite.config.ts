@@ -18,7 +18,13 @@ export default defineConfig({
     AutoImportTypes({ dtsDir: 'src/types' }),
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
-      imports: ['vue', 'pinia', 'vue-router', { '~/common/pinia-auto-refs': ['useStore'] }],
+      imports: [
+        'vue',
+        'pinia',
+        'vue-router',
+        { '~/common/pinia-auto-refs': ['useStore'] },
+        { '~/common/initSocket.ts': ['useSocket'] },
+      ],
       dts: 'src/auto-imports.d.ts',
       resolvers: [ElementPlusResolver()],
       eslintrc: {

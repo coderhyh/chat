@@ -1,10 +1,12 @@
 <template>
   <div class="ChatNavBar">
-    <h2>黄玉豪</h2>
+    <h2>{{ curFriendItem?.name }}</h2>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const curFriendItem = inject<FriendList>('curFriendItem')
+</script>
 
 <style lang="less" scoped>
 .ChatNavBar {

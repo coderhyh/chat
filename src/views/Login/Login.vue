@@ -12,10 +12,12 @@
 
 <script setup lang="ts">
 const value = ref<string>('')
-const { setName } = useStore('user')
+const { setUserName } = useStore('user')
 const router = useRouter()
 const submit = () => {
-  setName(value.value)
+  console.log(value.value)
+
+  setUserName(value.value)
   router.push('/')
 }
 watch(value, (val: string) => (value.value = val.slice(0, 3)))

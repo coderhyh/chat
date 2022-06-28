@@ -14,10 +14,11 @@ declare module '@vue/runtime-core' {
     ElInput: typeof import('element-plus/es')['ElInput']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     Graph: typeof import('./components/content/Echerts/Graph.vue')['default']
     Icon: typeof import('./components/common/Icon/Icon.vue')['default']
     NewsControl: typeof import('./components/content/NewsControl/NewsControl.vue')['default']
-    NewsList: typeof import('./components/content/NewsList/NewsList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

@@ -1,6 +1,7 @@
 {
   "globals": {
     "GlobalProperties": true,
+    "FriendList": true,
     "App": true
   }
 }

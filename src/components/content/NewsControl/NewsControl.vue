@@ -4,16 +4,16 @@
       <span>{{ name }}</span>
       <el-avatar class="avatar" shape="square" :size="45" :src="avatarUrl" />
     </section>
-    <pre class="msg">{{ value }}</pre>
+    <pre class="msg">{{ msg }}</pre>
   </div>
 </template>
 
 <script lang="ts" setup>
 const avatarUrl = 'https://www.coderhyh.top/logo.png'
 defineProps<{
-  value: string
+  msg: string
   right?: boolean
-  name: string
+  name?: string
 }>()
 </script>
 

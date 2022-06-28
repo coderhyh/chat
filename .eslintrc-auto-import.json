@@ -61,6 +61,7 @@
     "useRoute": "readonly",
     "useRouter": "readonly",
     "useSlots": "readonly",
+    "useSocket": "readonly",
     "useStore": "readonly",
     "watch": "readonly",
     "watchEffect": "readonly",

@@ -15,9 +15,9 @@
   /* 滚动条里面小方块 */
   border-radius: 5px;
   background: #dfdfdf;
-  &:hover {
-    background: #cfcfcf;
-  }
+}
+::-webkit-scrollbar-thumbhover {
+  background: #cfcfcf;
 }
 * {
   box-sizing: border-box;

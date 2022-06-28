@@ -3,13 +3,13 @@ export default defineStore({
   persist: {
     // 开启持久化
     enabled: true,
-    strategies: [{ storage: localStorage, paths: ['name'] }],
+    strategies: [{ storage: localStorage, paths: ['userName'] }],
   },
-  state: () => ({ name: '' }),
+  state: () => ({ userName: '' }),
   getters: {},
   actions: {
-    setName(data: string) {
-      this.name = data
+    setUserName(data: string) {
+      this.userName = data
     },
   },
 })

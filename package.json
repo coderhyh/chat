@@ -21,6 +21,7 @@
     "echarts": "^5.3.3",
     "echarts-gl": "^2.0.9",
     "element-plus": "^2.2.5",
+    "moment": "^2.29.3",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.14",
     "pinia-plugin-persist": "^1.0.0",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
     "@iconify/json": "^2.1.65",
+    "@types/moment": "^2.13.0",
     "@types/node": "^18.0.0",
     "@types/nprogress": "^0.2.0",
     "@types/socket.io-client": "^3.0.0",
