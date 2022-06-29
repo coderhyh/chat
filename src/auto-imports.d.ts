@@ -64,6 +64,7 @@ declare global {
   const useSlots: typeof import('vue')['useSlots']
   const useSocket: typeof import('~/common/initSocket.ts')['useSocket']
   const useStore: typeof import('~/common/pinia-auto-refs')['useStore']
+  const useUtils: typeof import('~/common/utils.ts')['useUtils']
   const watch: typeof import('vue')['watch']
   const watchEffect: typeof import('vue')['watchEffect']
   const watchPostEffect: typeof import('vue')['watchPostEffect']

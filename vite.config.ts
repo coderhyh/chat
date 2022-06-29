@@ -24,6 +24,7 @@ export default defineConfig({
         'vue-router',
         { '~/common/pinia-auto-refs': ['useStore'] },
         { '~/common/initSocket.ts': ['useSocket'] },
+        { '~/common/utils.ts': ['useUtils'] },
       ],
       dts: 'src/auto-imports.d.ts',
       resolvers: [ElementPlusResolver()],

@@ -36,10 +36,10 @@ provide(
   'curFriendItem',
   friendList.value.find((e) => e.userId === currentFriendId.value)
 )
-const getLatestVal = (list: FriendListList[], key: 'msg' | 'date'): string =>
-  key === 'msg'
+const getLatestVal = (list: FriendListMsg[], key: 'msg' | 'date'): string =>
+  (key === 'msg'
     ? list[list.length - 1]?.[key]
-    : list[list.length - 1]?.[key].split(' ')[1].substring(0, 5) ?? ''
+    : list[list.length - 1]?.[key].split(' ')[1].substring(0, 5) ?? '') as string
 </script>
 
 <style lang="less" scoped>

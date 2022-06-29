@@ -12,11 +12,9 @@ import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 
 import promptMp3 from '~/assets/other/piaopiao.mp3'
 import echarts from '~/common/initEcharts'
-const property = getCurrentInstance()?.proxy
 const prompt = ref<HTMLAudioElement>()
 
 provide('echarts', echarts)
-provide('self', property)
 provide('prompt', prompt)
 </script>
 

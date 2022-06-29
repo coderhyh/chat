@@ -1,5 +1,4 @@
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { io } from 'socket.io-client'
 
 export function $message(message: string, type: any): any {
   ElMessage({
@@ -18,4 +17,17 @@ export function $alert(text: string, title: string, callback: () => any): any {
     dangerouslyUseHTMLString: true,
     callback,
   })
+}
+
+export const $blobToDataURL = (blob: Blob, cb: (base64Url: string) => void) => {
+  const reader = new FileReader()
+  reader.onload = function (evt: ProgressEvent<FileReader>) {
+    const base64 = evt?.target?.result
+    cb(base64 as string)
+  }
+  reader.readAsDataURL(blob)
+}
+const utils = { $message, $alert, $blobToDataURL }
+export const useUtils = () => {
+  return { $message, $alert, $blobToDataURL } as typeof utils
 }

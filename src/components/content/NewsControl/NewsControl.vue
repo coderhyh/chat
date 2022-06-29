@@ -1,9 +1,18 @@
 <template>
-  <div :class="{ NewsControl: true, right: item.right }">
+  <div :class="{ NewsControl: true, right: item.isMe }">
     <el-avatar class="avatar" shape="square" :size="45" :src="avatarUrl" />
     <section>
       <span>{{ item.name }}</span>
-      <pre class="msg">{{ item.msg }}</pre>
+      <pre v-if="item.type === 'text'" class="msg">{{ item.msg }}</pre>
+      <el-image
+        v-else
+        hide-on-click-modal
+        :src="item.msg"
+        :initial-index="previewList?.findIndex((e) => e === item.msg)"
+        fit="cover"
+        :preview-src-list="previewList"
+      />
+      <!-- :preview-src-list="srcList" -->
       <p class="date">{{ item.date }}</p>
     </section>
   </div>
@@ -11,14 +20,9 @@
 
 <script lang="ts" setup>
 const avatarUrl = 'https://www.coderhyh.top/logo.png'
-interface SendData {
-  msg: string
-  name: string
-  right: boolean
-  date: string
-}
 defineProps<{
-  item: SendData
+  item: FriendListMsg
+  previewList: string[] | undefined
 }>()
 </script>
 
@@ -29,6 +33,7 @@ defineProps<{
     order: 1;
   }
   section {
+    align-items: flex-end;
     span {
       margin: 0 13px 5px 0 !important;
       text-align: right;
@@ -40,6 +45,9 @@ defineProps<{
     .date {
       margin: 5px 13px 5px 0 !important;
       text-align: right;
+    }
+    :deep(.el-image) {
+      margin-right: 13px;
     }
   }
 }
@@ -53,11 +61,18 @@ defineProps<{
   section {
     display: flex;
     flex-direction: column;
+    word-wrap: break-word;
+    white-space: normal;
     span {
       margin: 0 0 5px 13px;
       font-size: 14px;
     }
+    :deep(.el-image) {
+      margin-left: 13px;
+      max-width: 100px;
+    }
     .msg {
+      overflow: auto;
       align-self: flex-start;
       box-sizing: border-box;
       margin: 0 10px;
@@ -71,8 +86,13 @@ defineProps<{
       font-family: '微软雅黑';
       font-size: 15px;
       color: #232323;
+      word-wrap: break-word;
+      word-break: break-all;
       letter-spacing: 0.5px;
       white-space: pre-wrap;
+      white-space: -moz-pre-wrap;
+      white-space: -pre-wrap;
+      white-space: -o-pre-wrap;
     }
     .date {
       margin: 5px 0 5px 13px;

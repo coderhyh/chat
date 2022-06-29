@@ -3,7 +3,12 @@
     <ChatNavBar />
     <div class="main">
       <el-scrollbar ref="scrollbar" height="329px">
-        <NewsControl v-for="item in curFriendItem?.list" :key="item.date" :item="item" />
+        <NewsControl
+          v-for="item in curFriendItem?.list"
+          :key="item.date"
+          :item="item"
+          :preview-list="curFriendItem?.list.filter((e) => e.type === 'image').map((e) => e.msg)"
+        />
       </el-scrollbar>
     </div>
     <InputBox />

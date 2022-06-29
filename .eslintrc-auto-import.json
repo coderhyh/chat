@@ -63,6 +63,7 @@
     "useSlots": "readonly",
     "useSocket": "readonly",
     "useStore": "readonly",
+    "useUtils": "readonly",
     "watch": "readonly",
     "watchEffect": "readonly",
     "watchPostEffect": "readonly",
