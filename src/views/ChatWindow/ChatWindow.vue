@@ -3,13 +3,7 @@
     <ChatNavBar />
     <div class="main">
       <el-scrollbar ref="scrollbar" height="329px">
-        <NewsControl
-          v-for="item in curFriendItem?.list"
-          :key="item.date"
-          :msg="item.msg"
-          :name="item.name"
-          :right="item.right"
-        />
+        <NewsControl v-for="item in curFriendItem?.list" :key="item.date" :item="item" />
       </el-scrollbar>
     </div>
     <InputBox />
@@ -27,10 +21,9 @@ const scrollbar = ref<InstanceType<typeof ElScrollbar>>()
 const scrollDown = async () => {
   await nextTick()
   const h: number = scrollbar.value?.$el.querySelector('.el-scrollbar__view').offsetHeight
-  console.log(h)
   scrollbar.value?.setScrollTop(h)
 }
-watch(() => curFriendItem?.list, scrollDown, { deep: true })
+watch(() => curFriendItem?.list, scrollDown, { deep: true, immediate: true })
 </script>
 
 <style lang="less" scoped>

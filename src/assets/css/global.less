@@ -1,8 +1,22 @@
+.lineFn(@num) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: @num;
+}
+
 .link {
   color: pink;
 }
-.snh {
+
+.line1 {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.line2 {
+  .lineFn(2);
+}
+.line3 {
+  .lineFn(3);
 }

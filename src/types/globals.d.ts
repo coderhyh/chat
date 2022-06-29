@@ -4,18 +4,16 @@ declare interface GlobalProperties {
   [k: string]: unknown
 }
 
-interface FriendListList {
+declare interface FriendListList {
   msg: string
-  name?: string
-  right?: boolean
+  name: string
+  right: boolean
   date: string
 }
 
 declare interface FriendList {
   name: string
-  msg: string
-  date: string
-  id: string
+  userId: string
   avatar: string
   list: FriendListList[]
 }

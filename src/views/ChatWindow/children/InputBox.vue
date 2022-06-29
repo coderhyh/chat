@@ -1,7 +1,11 @@
 <template>
   <div class="InputBox">
     <div class="options">
-      <Icon icon="fontisto:smiley" size="20px" />
+      <!-- v-model:visible="showEmoji" -->
+      <el-tooltip effect="light" placement="top" trigger="click" :hide-after="0">
+        <template #content> <Emoji @emoji-click="emojiClick" /> </template>
+        <Icon icon="fontisto:smiley" class="icon" size="20px" />
+      </el-tooltip>
     </div>
     <div class="message">
       <textarea ref="textarea" v-model="value" autofocus @keydown.prevent.enter="submit" />
@@ -21,33 +25,48 @@
 
 <script setup lang="ts">
 import moment from 'moment'
+import { Ref } from 'vue'
+
+import Emoji from './Emoji.vue'
+interface SendData {
+  msg: string
+  name: string
+  right: boolean
+  date: string
+}
 
 const socket = useSocket()
 const { userName } = useStore('user')
 const curFriendItem = inject<FriendList>('curFriendItem')
 
+const emojiClick = (emoji: string) => {
+  console.log(emoji)
+}
+
 const visible = ref<boolean>(false)
 const textarea = ref<HTMLTextAreaElement>()
 const value = ref<string>('')
 const submit = (event: Event) => {
-  if (value.value.length === 0) {
+  if (/^ *$/g.test(value.value)) {
     visible.value = true
+    value.value = ''
     setTimeout(() => {
       visible.value = false
     }, 1000)
     return
   }
-  socket?.emit('sendMsg', value.value)
   const nowDate = moment().format('YYYY-MM-DD HH:mm:ss')
-  curFriendItem?.list.push({ msg: value.value, name: userName.value, right: true, date: nowDate })
+  const sendData: SendData = { msg: value.value, name: userName.value, right: true, date: nowDate }
+  socket?.emit('sendMsg', JSON.stringify(sendData))
+  curFriendItem?.list.push(sendData)
   value.value = ''
   textarea.value?.focus()
 }
-socket?.on('sendMsg', (e: string) => {
-  const nowDate = moment().format('YYYY-MM-DD HH:mm:ss')
-  curFriendItem?.list.push({ msg: e, name: userName.value, right: false, date: nowDate })
+const prompt = inject<Ref<HTMLAudioElement>>('prompt')
+socket?.on('sendMsg', (e: SendData) => {
+  curFriendItem?.list.push(e)
+  prompt?.value.play()
 })
-watch(value, (val: string) => (value.value = val.trim()))
 </script>
 
 <style lang="less" scoped>
@@ -60,6 +79,9 @@ watch(value, (val: string) => (value.value = val.trim()))
   .options {
     height: 20px;
     color: #494949;
+    .icon {
+      cursor: pointer;
+    }
   }
   .message {
     margin-top: 10px;

@@ -21,6 +21,7 @@ const icons = [
   'material-symbols:screenshot-monitor-outline',
   'material-symbols:folder-open-rounded',
   'fontisto:smiley',
+  'material-symbols:more-horiz',
 ]
 </script>
 

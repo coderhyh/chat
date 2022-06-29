@@ -2,8 +2,8 @@
   <div class="FriendItem">
     <el-avatar shape="square" :size="40" :src="avatar || 'https://www.coderhyh.top/logo.png'" />
     <section>
-      <p class="name">{{ name }}</p>
-      <div class="msg">{{ msg }}</div>
+      <p class="name line1">{{ name }}</p>
+      <div class="msg line1">{{ msg }}</div>
     </section>
     <div class="date">{{ date }}</div>
   </div>
@@ -37,19 +37,25 @@ withDefaults(
   background: #e1dfde;
   cursor: pointer;
   section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     margin: 0 10px;
-    width: 140px;
+    width: 128px;
     height: 40px;
     .name {
+      font-size: 14px;
       color: #000;
     }
     .msg {
+      font-size: 12px;
       color: #999;
     }
   }
   .date {
     align-self: flex-start;
     margin-top: 16px;
+    width: 36px;
     color: #b9b9b9;
   }
 }

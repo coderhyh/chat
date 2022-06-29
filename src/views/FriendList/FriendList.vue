@@ -5,12 +5,12 @@
       <el-scrollbar height="503px">
         <FriendItem
           v-for="item in friendList"
-          :key="item.id"
+          :key="item.userId"
           :name="item.name"
-          :msg="item.msg"
-          :date="item.date"
+          :msg="getLatestVal(item.list, 'msg')"
+          :date="getLatestVal(item.list, 'date')"
           :avatar="item.avatar"
-          :class="{ currentFriend: item.id === currentFriendId }"
+          :class="{ currentFriend: item.userId === currentFriendId }"
         />
       </el-scrollbar>
     </main>
@@ -23,19 +23,23 @@ import ChatWindow from '~/views/ChatWindow/ChatWindow.vue'
 
 import FriendItem from './children/FriendItem.vue'
 import Search from './children/Search.vue'
-
-const friendList = ref<FriendList[]>([
-  { name: '群聊', msg: '', date: '00:00', avatar: '', id: 'all', list: [] },
-  { name: '黄玉豪', msg: '哈哈哈', date: '00:00', avatar: '', id: '1', list: [] },
-  { name: '黄玉豪', msg: '哈哈哈', date: '00:00', avatar: '', id: '2', list: [] },
-  { name: '黄玉豪', msg: '哈哈哈', date: '00:00', avatar: '', id: '3', list: [] },
-  { name: '黄玉豪', msg: '哈哈哈', date: '00:00', avatar: '', id: '4', list: [] },
-])
+const { friendList } = useStore('user')
+// const friendList = ref<FriendList[]>([
+//   { name: '群聊', avatar: '', userId: 'all', list: [] },
+//   { name: '黄玉豪', avatar: '', userId: '1', list: [] },
+//   { name: '黄玉豪', avatar: '', userId: '2', list: [] },
+//   { name: '黄玉豪', avatar: '', userId: '3', list: [] },
+//   { name: '黄玉豪', avatar: '', userId: '4', list: [] },
+// ])
 const currentFriendId = ref<string>('all')
 provide(
   'curFriendItem',
-  friendList.value.find((e) => e.id === currentFriendId.value)
+  friendList.value.find((e) => e.userId === currentFriendId.value)
 )
+const getLatestVal = (list: FriendListList[], key: 'msg' | 'date'): string =>
+  key === 'msg'
+    ? list[list.length - 1]?.[key]
+    : list[list.length - 1]?.[key].split(' ')[1].substring(0, 5) ?? ''
 </script>
 
 <style lang="less" scoped>
@@ -46,7 +50,10 @@ provide(
     border-right: 1px solid #d6d6d6;
     background: #f5f5f5;
     .currentFriend {
-      background: #c3c3c4;
+      background: #c3c4c5;
+      :deep(.date) {
+        color: #999;
+      }
     }
   }
   .ChatWindow {
