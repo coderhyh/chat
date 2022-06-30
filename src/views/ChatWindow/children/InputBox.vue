@@ -36,7 +36,7 @@ import { Ref } from 'vue'
 import Emoji from './Emoji.vue'
 const socket = useSocket()
 const { userName } = useStore('user')
-const { $blobToDataURL } = useUtils()
+const { $blobToDataURL, $isUserExist } = useUtils()
 const curFriendItem = inject<FriendList>('curFriendItem')
 
 const visible = ref<boolean>(false)
@@ -52,7 +52,7 @@ const sendData = (msg: string, type: FriendListMsg['type'], isMe = false) => {
     date: nowDate,
     type,
   }
-  socket?.emit('sendMsg', JSON.stringify(sendData))
+  socket?.emit('sendMsg', sendData)
   curFriendItem?.list.push(sendData)
   value.value = ''
   textarea.value?.focus()
@@ -68,12 +68,29 @@ const submit = (event: Event) => {
   }
   sendData(value.value, 'text', true)
 }
-// 提示音
-const prompt = inject<Ref<HTMLAudioElement>>('prompt')
+// 广播接收消息 + 提示音
+// eslint-disable-next-line no-undef
+let timer: NodeJS.Timeout
+const prompt = inject<Prompt>('prompt')
 socket?.on('sendMsg', (e: FriendListMsg) => {
   curFriendItem?.list.push(e)
-  prompt?.value.play()
+  prompt?.newMsgVoice.play()
+
+  const isUserExist: false | 'Exist' | 'Leave' = $isUserExist()
+  if (isUserExist && isUserExist === 'Leave') systematicNotification(e)
 })
+// 系统通知
+const systematicNotification = (e: FriendListMsg) => {
+  clearTimeout(timer)
+  timer = setTimeout(() => {
+    const body = e?.type === 'image' ? `${e?.name}: [涩涩图]` : `${e?.name}: ${e?.msg}`
+    new Notification('新消息', {
+      body,
+      icon: 'https://www.coderhyh.top/logo.png',
+    })
+  }, 1000)
+}
+
 // 粘贴图片
 const handlePaste = (event: ClipboardEvent) => {
   // eslint-disable-next-line no-unsafe-optional-chaining

@@ -27,7 +27,25 @@ export const $blobToDataURL = (blob: Blob, cb: (base64Url: string) => void) => {
   }
   reader.readAsDataURL(blob)
 }
-const utils = { $message, $alert, $blobToDataURL }
-export const useUtils = () => {
-  return { $message, $alert, $blobToDataURL } as typeof utils
+
+function $isUserExist(): false | 'Exist' | 'Leave' {
+  const hiddenProperty =
+    'hidden' in document
+      ? 'hidden'
+      : 'webkitHidden' in document
+      ? 'webkitHidden'
+      : 'mozHidden' in document
+      ? 'mozHidden'
+      : null
+  if (!hiddenProperty) return false
+  return !(document as any)[hiddenProperty] ? 'Exist' : 'Leave'
 }
+
+const utils = { $message, $alert, $blobToDataURL, $isUserExist }
+// type aaa = {
+//   $message: (message: string, type: any) => void
+//   $alert: (text: string, title: string, callback: () => any) => void
+//   $blobToDataURL: (blob: Blob, cb: (base64Url: string) => void) => void
+//   $isUserExist: () => false | 'Exist' | 'Leave'
+// }
+export const useUtils = () => utils

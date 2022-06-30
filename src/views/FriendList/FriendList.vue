@@ -36,10 +36,14 @@ provide(
   'curFriendItem',
   friendList.value.find((e) => e.userId === currentFriendId.value)
 )
-const getLatestVal = (list: FriendListMsg[], key: 'msg' | 'date'): string =>
-  (key === 'msg'
-    ? list[list.length - 1]?.[key]
-    : list[list.length - 1]?.[key].split(' ')[1].substring(0, 5) ?? '') as string
+const getLatestVal = (list: FriendListMsg[], key: 'msg' | 'date'): string => {
+  const L = list[list.length - 1]
+  if (!L?.name) return ''
+  if (key === 'msg') {
+    return L?.type === 'image' ? `${L?.name}: [涩涩图]` : `${L?.name}: ${L?.[key]}`
+  }
+  return L[key].split(' ')[1].substring(0, 5)
+}
 </script>
 
 <style lang="less" scoped>

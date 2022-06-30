@@ -3,6 +3,7 @@
     "GlobalProperties": true,
     "FriendListMsg": true,
     "FriendList": true,
+    "Prompt": true,
     "App": true
   }
 }

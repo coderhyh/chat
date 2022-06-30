@@ -19,3 +19,8 @@ declare interface FriendList {
   avatar: string
   list: FriendListMsg[]
 }
+
+declare interface Prompt {
+  newMsgVoice: Ref<HTMLAudioElement>
+  findMeVoice: Ref<HTMLAudioElement>
+}
