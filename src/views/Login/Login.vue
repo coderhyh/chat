@@ -12,13 +12,14 @@
 
 <script setup lang="ts">
 const value = ref<string>('')
-const { setUserName } = useStore('user')
+const { userName } = useStore('user')
+const socket = useSocket()
 const router = useRouter()
-const submit = () => {
-  console.log(value.value)
-
-  setUserName(value.value)
-  router.push('/')
+const submit = async () => {
+  userName.value = value.value
+  // socket.auth = { userName: value.value }
+  await router.push('/')
+  socket.connect()
 }
 watch(value, (val: string) => (value.value = val.slice(0, 3)))
 </script>

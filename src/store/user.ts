@@ -13,11 +13,12 @@ export default defineStore({
     enabled: true,
     strategies: [{ storage: localStorage, paths: ['userName', 'friendList'] }],
   },
-  state: () => ({ userName: '', friendList: <FriendList[]>friendList }),
+  state: () => ({
+    userName: '',
+    friendList: <FriendList[]>friendList,
+    friendTarget: <User.FriendTarget>{ target: '', type: '' }, // @ && 拍一拍 功能
+    userCount: 0,
+  }),
   getters: {},
-  actions: {
-    setUserName(data: string) {
-      this.userName = data
-    },
-  },
+  actions: {},
 })

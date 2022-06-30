@@ -3,7 +3,7 @@
     <audio ref="newMsgVoice" class="Prompt" :src="promptMp3"></audio>
     <audio ref="findMeVoice" class="Prompt" :src="findMePromptMp3"></audio>
     <el-config-provider :locale="zhCn">
-      <router-view />
+      <router-view @contextmenu.prevent />
     </el-config-provider>
   </div>
 </template>

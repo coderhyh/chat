@@ -1,6 +1,8 @@
 <template>
   <div class="ChatNavBar">
-    <h2>{{ curFriendItem?.name }}</h2>
+    <h2>
+      {{ curFriendItem?.name }} <span v-if="userCount">({{ userCount }})</span>
+    </h2>
     <el-dropdown trigger="hover">
       <Icon class="icon" icon="material-symbols:more-horiz" size="22px" />
       <template #dropdown>
@@ -16,7 +18,7 @@
 
 <script setup lang="ts">
 const curFriendItem = inject<FriendList>('curFriendItem')
-
+const { userCount } = useStore('user')
 const clearRecord = () => {
   curFriendItem!.list = []
 }

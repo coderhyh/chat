@@ -4,6 +4,7 @@
     "FriendListMsg": true,
     "FriendList": true,
     "Prompt": true,
-    "App": true
+    "App": true,
+    "User": true
   }
 }

@@ -1,6 +1,14 @@
 <template>
   <div :class="{ NewsControl: true, right: item.isMe }">
-    <el-avatar class="avatar" shape="square" :size="45" :src="avatarUrl" />
+    <el-avatar
+      class="avatar"
+      shape="square"
+      :size="45"
+      :src="avatarUrl"
+      tabindex="-1"
+      @contextmenu="contextMenuFlag = true"
+      @blur="contextMenu"
+    />
     <section>
       <span>{{ item.name }}</span>
       <pre v-if="item.type === 'text'" class="msg">{{ item.msg }}</pre>
@@ -12,18 +20,39 @@
         fit="cover"
         :preview-src-list="previewList"
       />
-      <!-- :preview-src-list="srcList" -->
-      <p class="date">{{ item.date }}</p>
+      <p class="date">
+        {{ item.date }}
+      </p>
     </section>
+
+    <template v-if="!item.isMe">
+      <div v-show="contextMenuFlag" class="contextMenu">
+        <p @click="contextMenuClick('@')">@黄玉豪</p>
+        <p @click="contextMenuClick('pai')">拍一拍</p>
+      </div>
+    </template>
   </div>
 </template>
 
 <script lang="ts" setup>
+const { friendTarget } = useStore('user')
 const avatarUrl = 'https://www.coderhyh.top/logo.png'
 defineProps<{
   item: FriendListMsg
   previewList: string[] | undefined
 }>()
+const contextMenuFlag = ref<boolean>(false)
+const contextMenu = () =>
+  setTimeout(() => {
+    contextMenuFlag.value = false
+  }, 300)
+
+const contextMenuClick = (type: '@' | 'pai') => {
+  friendTarget.value = {
+    target: '',
+    type,
+  }
+}
 </script>
 
 <style lang="less" scoped>
@@ -53,10 +82,28 @@ defineProps<{
 }
 .NewsControl {
   display: flex;
+  position: relative;
   align-items: flex-start;
   margin: 10px 0;
+  .contextMenu {
+    position: absolute;
+    left: 23px;
+    top: 23px;
+    border: 1px solid #858585;
+    background: white;
+    line-height: 34px;
+    text-align: center;
+    p {
+      padding: 0 20px;
+      cursor: pointer;
+    }
+    p:hover {
+      background: #e2e2e2;
+    }
+  }
   .avatar {
     margin-top: 5px;
+    cursor: pointer;
   }
   section {
     display: flex;

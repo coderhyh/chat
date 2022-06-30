@@ -44,6 +44,11 @@ const getLatestVal = (list: FriendListMsg[], key: 'msg' | 'date'): string => {
   }
   return L[key].split(' ')[1].substring(0, 5)
 }
+
+const socket = useSocket()
+socket.onAny((event, ...args) => {
+  console.log(event, args)
+})
 </script>
 
 <style lang="less" scoped>

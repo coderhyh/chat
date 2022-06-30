@@ -4,3 +4,9 @@ declare namespace App {
     path: string
   }
 }
+declare namespace User {
+  interface FriendTarget {
+    target: string
+    type: '@' | 'pai' | ''
+  }
+}

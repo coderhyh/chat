@@ -2,9 +2,16 @@
   <div class="InputBox">
     <div class="options">
       <!-- v-model:visible="showEmoji" -->
-      <el-tooltip effect="light" placement="top" trigger="click" :hide-after="0">
+      <el-tooltip v-model:visible="isShowEmoji" effect="light" placement="top" :hide-after="200">
         <template #content> <Emoji @emoji-click="(emoji) => (value += emoji)" /> </template>
-        <Icon icon="fontisto:smiley" class="icon" size="20px" />
+        <Icon
+          icon="fontisto:smiley"
+          class="icon"
+          size="20px"
+          tabindex="-1"
+          @click="isShowEmoji = !isShowEmoji"
+          @blur="emojiBlur"
+        />
       </el-tooltip>
     </div>
     <div class="message">
@@ -31,7 +38,6 @@
 
 <script setup lang="ts">
 import moment from 'moment'
-import { Ref } from 'vue'
 
 import Emoji from './Emoji.vue'
 const socket = useSocket()
@@ -42,6 +48,13 @@ const curFriendItem = inject<FriendList>('curFriendItem')
 const visible = ref<boolean>(false)
 const textarea = ref<HTMLTextAreaElement>()
 const value = ref<string>('')
+
+const isShowEmoji = ref<boolean>(false)
+const emojiBlur = () =>
+  setTimeout(() => {
+    isShowEmoji.value = false
+    textarea.value?.focus()
+  }, 300)
 
 const sendData = (msg: string, type: FriendListMsg['type'], isMe = false) => {
   const nowDate = moment().format('YYYY-MM-DD HH:mm:ss')
