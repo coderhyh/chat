@@ -5,8 +5,8 @@ declare namespace App {
   }
 }
 declare namespace User {
-  interface FriendTarget {
-    target: string
-    type: '@' | 'pai' | ''
+  interface FriendTargets {
+    name: string
+    userId: string
   }
 }

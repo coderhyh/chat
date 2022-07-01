@@ -17,7 +17,7 @@ const socket = useSocket()
 const router = useRouter()
 const submit = async () => {
   userName.value = value.value
-  // socket.auth = { userName: value.value }
+  socket.auth = { userName: value.value }
   await router.push('/')
   socket.connect()
 }

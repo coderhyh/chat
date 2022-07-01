@@ -1,13 +1,13 @@
 <template>
   <div :class="{ NewsControl: true, right: item.isMe }">
     <el-avatar
-      class="avatar"
+      :class="{ avatar: true, animate__animated: true, animate__shakeX: pai_yi_pai_flag }"
       shape="square"
       :size="45"
       :src="avatarUrl"
       tabindex="-1"
       @contextmenu="contextMenuFlag = true"
-      @blur="contextMenu"
+      @blur="contextMenuBlur"
     />
     <section>
       <span>{{ item.name }}</span>
@@ -27,31 +27,48 @@
 
     <template v-if="!item.isMe">
       <div v-show="contextMenuFlag" class="contextMenu">
-        <p @click="contextMenuClick('@')">@黄玉豪</p>
-        <p @click="contextMenuClick('pai')">拍一拍</p>
+        <p @click="aiteTa">@{{ item.name }}</p>
+        <p @click="pai_yi_pai">拍一拍</p>
       </div>
     </template>
   </div>
 </template>
 
 <script lang="ts" setup>
-const { friendTarget } = useStore('user')
+const { userName, friendTargets } = useStore('user')
+const socket = useSocket()
 const avatarUrl = 'https://www.coderhyh.top/logo.png'
-defineProps<{
+const props = defineProps<{
   item: FriendListMsg
   previewList: string[] | undefined
 }>()
 const contextMenuFlag = ref<boolean>(false)
-const contextMenu = () =>
+const contextMenuBlur = () =>
   setTimeout(() => {
     contextMenuFlag.value = false
-  }, 300)
+  }, 200)
 
-const contextMenuClick = (type: '@' | 'pai') => {
-  friendTarget.value = {
-    target: '',
-    type,
-  }
+const aiteTa = () => {
+  friendTargets.value.push({
+    name: props.item.name,
+    userId: props.item.userId,
+  })
+}
+
+const pai_yi_pai_flag = ref<boolean>(false)
+const pai_yi_pai = () => {
+  socket.emit('contextmenu_avatar', {
+    type: 'PAI_YI_PAI',
+    target: props.item.userId,
+    userName: userName.value,
+  })
+  changePai_yi_pai_flag()
+}
+const changePai_yi_pai_flag = () => {
+  pai_yi_pai_flag.value = true
+  setTimeout(() => {
+    pai_yi_pai_flag.value = false
+  }, 1500)
 }
 </script>
 

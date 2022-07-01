@@ -3,12 +3,14 @@
     <ChatNavBar />
     <div class="main">
       <el-scrollbar ref="scrollbar" height="329px">
-        <NewsControl
-          v-for="item in curFriendItem?.list"
-          :key="item.date"
-          :item="item"
-          :preview-list="curFriendItem?.list.filter((e) => e.type === 'image').map((e) => e.msg)"
-        />
+        <template v-for="item in curFriendItem?.list" :key="item.userId">
+          <NewsControl
+            v-if="item.type !== 'inform'"
+            :item="item"
+            :preview-list="curFriendItem?.list.filter((e) => e.type === 'image').map((e) => e.msg)"
+          />
+          <p v-else class="inform">谁谁拍了拍我</p>
+        </template>
       </el-scrollbar>
     </div>
     <InputBox />

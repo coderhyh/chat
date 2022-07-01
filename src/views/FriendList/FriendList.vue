@@ -4,7 +4,7 @@
       <Search />
       <el-scrollbar height="503px">
         <FriendItem
-          v-for="item in friendList"
+          v-for="item in userList"
           :key="item.userId"
           :name="item.name"
           :msg="getLatestVal(item.list, 'msg')"
@@ -23,8 +23,8 @@ import ChatWindow from '~/views/ChatWindow/ChatWindow.vue'
 
 import FriendItem from './children/FriendItem.vue'
 import Search from './children/Search.vue'
-const { friendList } = useStore('user')
-// const friendList = ref<FriendList[]>([
+const { userList } = useStore('user')
+// const userList = ref<FriendList[]>([
 //   { name: '群聊', avatar: '', userId: 'all', list: [] },
 //   { name: '黄玉豪', avatar: '', userId: '1', list: [] },
 //   { name: '黄玉豪', avatar: '', userId: '2', list: [] },
@@ -34,7 +34,7 @@ const { friendList } = useStore('user')
 const currentFriendId = ref<string>('all')
 provide(
   'curFriendItem',
-  friendList.value.find((e) => e.userId === currentFriendId.value)
+  userList.value.find((e) => e.userId === currentFriendId.value)
 )
 const getLatestVal = (list: FriendListMsg[], key: 'msg' | 'date'): string => {
   const L = list[list.length - 1]
@@ -44,11 +44,6 @@ const getLatestVal = (list: FriendListMsg[], key: 'msg' | 'date'): string => {
   }
   return L[key].split(' ')[1].substring(0, 5)
 }
-
-const socket = useSocket()
-socket.onAny((event, ...args) => {
-  console.log(event, args)
-})
 </script>
 
 <style lang="less" scoped>

@@ -19,7 +19,7 @@
         ref="textarea"
         v-model="value"
         autofocus
-        @paste="handlePaste"
+        @paste="onHandlePaste"
         @keydown.prevent.enter="submit"
       />
     </div>
@@ -39,10 +39,11 @@
 <script setup lang="ts">
 import moment from 'moment'
 
+import { handlePaste, systematicNotification } from '../common'
 import Emoji from './Emoji.vue'
 const socket = useSocket()
-const { userName } = useStore('user')
-const { $blobToDataURL, $isUserExist } = useUtils()
+const { userName, friendTargets } = useStore('user')
+const { $isUserExist } = useUtils()
 const curFriendItem = inject<FriendList>('curFriendItem')
 
 const visible = ref<boolean>(false)
@@ -56,16 +57,41 @@ const emojiBlur = () =>
     textarea.value?.focus()
   }, 300)
 
-const sendData = (msg: string, type: FriendListMsg['type'], isMe = false) => {
+// @功能
+// eslint-disable-next-line no-undef
+const friendTarget_Watch = (target: User.FriendTargets[]) => {
+  if (!target.length) return
+  const lastIndex = target.length - 1
+  const name = target[lastIndex].name
+  value.value += ` @${name} `
+  textarea.value?.focus()
+}
+watch(friendTargets, friendTarget_Watch, { deep: true })
+
+interface SendDataType {
+  msg: string
+  type: FriendListMsg['type']
+}
+const sendData = ({ msg, type }: SendDataType) => {
   const nowDate = moment().format('YYYY-MM-DD HH:mm:ss')
   const sendData: FriendListMsg = {
     msg,
     name: userName.value,
-    isMe, // 默认左边
+    isMe: true,
     date: nowDate,
     type,
+    userId: socket.id,
   }
-  socket?.emit('sendMsg', sendData)
+  let aiteTargets = undefined
+  // 过滤 @
+  if (type === 'text') {
+    aiteTargets = friendTargets.value
+      .filter((e) => msg.indexOf('@' + e.name) !== -1)
+      .map((e) => e.userId)
+    aiteTargets = Array.from(new Set(aiteTargets))
+    friendTargets.value = []
+  }
+  socket?.emit('sendMsg', sendData, aiteTargets)
   curFriendItem?.list.push(sendData)
   value.value = ''
   textarea.value?.focus()
@@ -79,11 +105,13 @@ const submit = (event: Event) => {
     }, 1000)
     return
   }
-  sendData(value.value, 'text', true)
+  sendData({
+    msg: value.value,
+    type: 'text',
+  })
 }
 // 广播接收消息 + 提示音
 // eslint-disable-next-line no-undef
-let timer: NodeJS.Timeout
 const prompt = inject<Prompt>('prompt')
 socket?.on('sendMsg', (e: FriendListMsg) => {
   curFriendItem?.list.push(e)
@@ -92,39 +120,10 @@ socket?.on('sendMsg', (e: FriendListMsg) => {
   const isUserExist: false | 'Exist' | 'Leave' = $isUserExist()
   if (isUserExist && isUserExist === 'Leave') systematicNotification(e)
 })
-// 系统通知
-const systematicNotification = (e: FriendListMsg) => {
-  clearTimeout(timer)
-  timer = setTimeout(() => {
-    const body = e?.type === 'image' ? `${e?.name}: [涩涩图]` : `${e?.name}: ${e?.msg}`
-    new Notification('新消息', {
-      body,
-      icon: 'https://www.coderhyh.top/logo.png',
-    })
-  }, 1000)
-}
-
 // 粘贴图片
-const handlePaste = (event: ClipboardEvent) => {
-  // eslint-disable-next-line no-unsafe-optional-chaining
-  const items = event?.clipboardData?.items
-  let file = null
-  if (!items || items.length === 0) {
-    // self?.$message('当前浏览器不支持本地')
-    return
-  }
-  if (items?.[0].type.indexOf('image') !== -1) file = items?.[0].getAsFile()
-  if (!file) return
-
-  $blobToDataURL(file, (base64Url: string) => {
-    sendData(base64Url, 'image', true)
-  })
-  // const reader = new FileReader()
-  // reader.onload = (event: ProgressEvent<FileReader>) => {
-  //   preview.innerHTML = `<img id="pase-img" src="${event?.target?.result}" style="width: 100%">`
-  // }
-  // reader.readAsDataURL(file)
-  // this.pasteFile = file
+const onHandlePaste = async (event: ClipboardEvent) => {
+  const res = await handlePaste(event).catch((err) => err)
+  res !== 'null' && sendData({ msg: res, type: 'image' })
 }
 </script>
 

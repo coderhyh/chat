@@ -10,7 +10,8 @@ declare interface FriendListMsg {
   name: string
   isMe: boolean
   date: string
-  type: 'image' | 'text'
+  type: 'image' | 'text' | 'inform'
+  userId: string
 }
 
 declare interface FriendList {
