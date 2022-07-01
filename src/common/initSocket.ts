@@ -5,20 +5,23 @@ interface ServerToClientEvents {
   userCount: (userCount: number) => void
   sendMsg: (sendData: FriendListMsg) => void
   userList: (userList: UserList[]) => void
-  contextmenu_avatar: (msg: '@AITE_NAME' | 'PAI_YI_PAI') => void
+  contextmenu_avatar: (msg: '@AITE_NAME' | 'PAI_YI_PAI', options?: contextmenu_avatar_type) => void
 }
 interface ClientToServerEvents {
   disconnect: () => void
   sendMsg: (sendData: FriendListMsg, aiteTargets?: string[]) => void
-  contextmenu_avatar: (options: {
-    type: '@AITE_NAME' | 'PAI_YI_PAI'
-    target: string
-    userName: string
-  }) => void
+  contextmenu_avatar: (options: contextmenu_avatar_type) => void
 }
 interface UserList {
   userId: string
   userName?: string
+}
+interface contextmenu_avatar_type {
+  type: '@AITE_NAME' | 'PAI_YI_PAI'
+  targetId: string
+  targetName: string
+  selfName: string
+  selfId: string
 }
 
 const url = import.meta.env.VITE_SOCKET_BASE_URL

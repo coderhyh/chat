@@ -59,8 +59,10 @@ const pai_yi_pai_flag = ref<boolean>(false)
 const pai_yi_pai = () => {
   socket.emit('contextmenu_avatar', {
     type: 'PAI_YI_PAI',
-    target: props.item.userId,
-    userName: userName.value,
+    targetId: props.item.userId,
+    targetName: props.item.name,
+    selfName: userName.value,
+    selfId: socket.id,
   })
   changePai_yi_pai_flag()
 }
