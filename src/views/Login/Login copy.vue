@@ -2,8 +2,10 @@
   <div class="Login">
     <el-card class="box-card">
       <template #header>
-        <span>We Chat</span>
+        <span>Your Name</span>
       </template>
+      <el-input v-model="value" placeholder="Your Name" @keyup.enter="submit" />
+      <el-button class="submit" type="primary" @click="submit">Login</el-button>
     </el-card>
   </div>
 </template>
@@ -28,8 +30,7 @@ watch(value, (val: string) => (value.value = val.slice(0, 3)))
   height: 100vh;
   .box-card {
     margin: 10% auto 0;
-    width: 280px;
-    height: 380px;
+    width: 500px;
     .submit {
       display: block;
       margin: 15px auto 0;

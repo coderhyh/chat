@@ -16,6 +16,7 @@
         <span>{{ item.name }}</span>
       </el-menu-item>
     </el-menu>
+    <Icon class="logout" icon="ic:round-logout" size="26px" />
   </div>
 </template>
 
@@ -63,7 +64,17 @@ const menu: Menu[] = [
     }
     .el-menu-item:hover {
       background: inherit;
+      color: white;
     }
+  }
+  .logout {
+    margin-top: 90px;
+    cursor: pointer;
+    color: #909090;
+    transition: all 0.3s;
+  }
+  .logout:hover {
+    color: white;
   }
 }
 </style>

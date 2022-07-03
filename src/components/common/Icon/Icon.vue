@@ -22,6 +22,7 @@ const icons = [
   'material-symbols:folder-open-rounded',
   'fontisto:smiley',
   'material-symbols:more-horiz',
+  'ic:round-logout',
 ]
 </script>
 

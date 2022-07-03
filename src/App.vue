@@ -62,6 +62,7 @@ Notification.requestPermission()
 
 <style lang="less" scoped>
 .App {
+  overflow: hidden;
   min-width: 860px;
   .Prompt {
     position: fixed;
