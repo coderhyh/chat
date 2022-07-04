@@ -47,7 +47,7 @@ socket.on('contextmenu_avatar', (type, options) => {
     setTimeout(() => {
       audioUrl.value = promptMp3
     }, 4000)
-  } else if (type === 'PAI_YI_PAI' && socket.id === options?.targetId) changePai_yi_pai_flag()
+  } else if (type === 'PAI_YI_PAI' && socket.id === options?.receiveId) changePai_yi_pai_flag()
 })
 const changePai_yi_pai_flag = () => {
   pai_yi_pai_flag.value = true

@@ -50,8 +50,8 @@ const contextMenuBlur = () =>
 
 const aiteTa = () => {
   friendTargets.value.push({
-    name: props.item.name,
-    userId: props.item.userId,
+    name: props.item.name as string,
+    userId: props.item.userId as string,
   })
 }
 
@@ -59,10 +59,10 @@ const pai_yi_pai_flag = ref<boolean>(false)
 const pai_yi_pai = () => {
   socket.emit('contextmenu_avatar', {
     type: 'PAI_YI_PAI',
-    targetId: props.item.userId,
-    targetName: props.item.name,
-    selfName: userName.value,
-    selfId: socket.id,
+    receiveId: props.item.userId as string,
+    receiveName: props.item.name as string,
+    launchName: userName.value,
+    launchId: socket.id,
   })
   changePai_yi_pai_flag()
 }

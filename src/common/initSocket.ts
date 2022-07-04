@@ -18,10 +18,10 @@ interface UserList {
 }
 interface contextmenu_avatar_type {
   type: '@AITE_NAME' | 'PAI_YI_PAI'
-  targetId: string
-  targetName: string
-  selfName: string
-  selfId: string
+  receiveId: string
+  receiveName: string
+  launchName: string
+  launchId: string
 }
 
 const url = import.meta.env.VITE_SOCKET_BASE_URL

@@ -55,7 +55,7 @@ const emojiBlur = () =>
   setTimeout(() => {
     isShowEmoji.value = false
     textarea.value?.focus()
-  }, 300)
+  }, 250)
 
 // @功能
 // eslint-disable-next-line no-undef

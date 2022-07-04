@@ -35,20 +35,20 @@ const scrollDown = async () => {
 watch(() => curFriendItem?.list, scrollDown, { deep: true, immediate: true })
 
 socket.on('contextmenu_avatar', (_, options) => {
-  const isTarget = socket.id === options?.selfId
-  const isSelf = socket.id === options?.targetId
+  if (options?.type !== 'PAI_YI_PAI') return
+  const isReceive = socket.id === options?.receiveId // 接收
+  const isLaunch = socket.id === options?.launchId // 发起
+  console.log(isReceive, isLaunch)
+
   let msg: string
   const nowDate = moment().format('YYYY-MM-DD HH:mm:ss')
-  if (isSelf) msg = `${options.selfName} 拍了拍我`
-  else if (isTarget) msg = `我拍了拍 ${options.targetName}`
-  else msg = `${options?.selfName} 拍了拍 ${options?.targetName}`
+  if (isReceive) msg = `${options.launchName} 拍了拍我`
+  else if (isLaunch) msg = `我拍了拍 ${options.launchName}`
+  else msg = `${options?.launchName} 拍了拍 ${options?.receiveName}`
   curFriendItem?.list.push({
     type: 'inform',
     msg,
-    isMe: isSelf,
     date: nowDate,
-    name: options?.selfName as string,
-    userId: options?.selfId as string,
   })
 })
 </script>

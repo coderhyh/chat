@@ -7,11 +7,11 @@ declare interface GlobalProperties {
 
 declare interface FriendListMsg {
   msg: string
-  name: string
-  isMe: boolean
   date: string
   type: 'image' | 'text' | 'inform'
-  userId: string
+  isMe?: boolean
+  name?: string
+  userId?: string
 }
 
 declare interface FriendList {
