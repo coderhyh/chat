@@ -1,7 +1,6 @@
 {
   "globals": {
     "EffectScope": "readonly",
-    "ElMessage": "readonly",
     "acceptHMRUpdate": "readonly",
     "computed": "readonly",
     "createApp": "readonly",

@@ -22,7 +22,9 @@
         <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
       </el-upload>
       <InputControl v-model="userName" title="userName" />
-      <InputControl v-model="password" title="passWord" type="password" />
+      <el-tooltip effect="light" content="6-12位" placement="right">
+        <InputControl v-model="passWord" title="passWord" type="password" />
+      </el-tooltip>
       <CommonButton class="button" :name="isLogin ? 'LOGIN' : 'SIGN UP'" @click="submit" />
     </el-card>
   </div>
@@ -31,17 +33,39 @@
 <script setup lang="ts">
 import { Plus } from '@element-plus/icons-vue'
 import type { UploadProps } from 'element-plus'
+
+import { reqSignup } from '~/network/user'
 const userName = ref<string>('')
-const password = ref<string>('')
+const passWord = ref<string>('')
 const isLogin = ref<boolean>(true)
 const imageUrl = ref('')
 const imageFile = ref<File>()
 // const { userName } = useStore('user')
+const { $message } = useUtils()
 const socket = useSocket()
 const router = useRouter()
 const login = () => {}
-const signup = () => {}
+const signup = async () => {
+  const formData = new FormData()
+  formData.append('userName', userName.value)
+  formData.append('passWord', passWord.value)
+  formData.append('avatar', imageFile.value!)
+  const res = await reqSignup(formData)
+  $message(res, res === 200 ? 'success' : 'error')
+  res === 200 && (isLogin.value = true)
+}
 const submit = async () => {
+  if (!userName.value || !passWord.value) {
+    $message('输入不可有空 !', 'error')
+    return
+  }
+  if (!isLogin.value && !imageFile.value) {
+    $message('请上传头像 !', 'error')
+    return
+  }
+  if (!/^\w{6,12}$/g.test(passWord.value)) {
+    $message('请输入数字、字母、下划线6-12位密码 !', 'error')
+  }
   isLogin.value ? login() : signup()
   // userName.value = value.value
   // socket.auth = { userName: value.value }
@@ -50,10 +74,10 @@ const submit = async () => {
 }
 const uploadChange: UploadProps['onChange'] = (file, files) => {
   if (file.raw?.type !== 'image/jpeg') {
-    ElMessage.error('Avatar picture must be JPG format!')
+    $message('Avatar picture must be JPG format!', 'error')
     return false
   } else if (file.raw?.size / 1024 / 1024 > 2) {
-    ElMessage.error('Avatar picture size can not exceed 2MB!')
+    $message('Avatar picture size can not exceed 2MB!', 'error')
     return false
   }
 

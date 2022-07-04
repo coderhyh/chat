@@ -56,6 +56,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/socketIo/, ''),
       },
+      '/wx': {
+        target: 'http://127.0.0.1:5000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/wx/, ''),
+      },
     },
   },
   // 打包配置

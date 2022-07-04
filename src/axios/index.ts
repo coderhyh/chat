@@ -6,9 +6,8 @@ import NProgress from 'nprogress'
 
 export function request(config: AxiosRequestConfig) {
   const instance = axios.create({
-    baseURL: '',
+    baseURL: '/wx',
     timeout: 60000,
-    ...config,
   })
 
   interface reqConfig extends AxiosRequestConfig {
