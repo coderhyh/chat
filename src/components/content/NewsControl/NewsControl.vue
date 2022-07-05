@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-const { userName, friendTargets } = useStore('user')
+const { userInfo, friendTargets } = useStore('user')
 const socket = useSocket()
 const avatarUrl = 'https://www.coderhyh.top/logo.png'
 const props = defineProps<{
@@ -61,7 +61,7 @@ const pai_yi_pai = () => {
     type: 'PAI_YI_PAI',
     receiveId: props.item.userId as string,
     receiveName: props.item.name as string,
-    launchName: userName.value,
+    launchName: userInfo.value.name,
     launchId: socket.id,
   })
   changePai_yi_pai_flag()

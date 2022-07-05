@@ -42,7 +42,7 @@ import moment from 'moment'
 import { handlePaste, systematicNotification } from '../common'
 import Emoji from './Emoji.vue'
 const socket = useSocket()
-const { userName, friendTargets } = useStore('user')
+const { userInfo, friendTargets } = useStore('user')
 const { $isUserExist } = useUtils()
 const curFriendItem = inject<FriendList>('curFriendItem')
 
@@ -76,7 +76,7 @@ const sendData = ({ msg, type }: SendDataType) => {
   const nowDate = moment().format('YYYY-MM-DD HH:mm:ss')
   const sendData: FriendListMsg = {
     msg,
-    name: userName.value,
+    name: userInfo.value.name,
     isMe: true,
     date: nowDate,
     type,

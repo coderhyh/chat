@@ -8,10 +8,10 @@ const router = createRouter({
 })
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  const { userName } = useStore('user')
-  if (userName.value) {
+  const { token } = useStore('user')
+  if (token.value) {
     if (to.name !== 'FriendList') return next('/')
-  } else if (to.name !== 'Login') return next('/login')
+  } else if (to.name !== 'Login&Register') return next('/login&register')
   next()
 })
 router.afterEach((to, from) => {

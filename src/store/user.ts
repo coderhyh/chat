@@ -5,10 +5,11 @@ export default defineStore({
   persist: {
     // 开启持久化
     enabled: true,
-    strategies: [{ storage: localStorage, paths: ['userName', 'userList'] }],
+    strategies: [{ storage: localStorage, paths: ['userName', 'userList', 'token'] }],
   },
   state: () => ({
-    userName: '',
+    userInfo: { name: '', userId: '', avatar: '' },
+    token: '',
     userList: <FriendList[]>userList,
     friendTargets: <User.FriendTargets[]>[], // @ 功能
     userCount: 0,

@@ -37,4 +37,9 @@ socket?.on('connect', () => {
     console.log(event, args)
   })
 })
+socket.on('connect_error', (err) => {
+  if (err.message === '无效token') {
+    console.log('无效token')
+  }
+})
 export const useSocket = () => socket

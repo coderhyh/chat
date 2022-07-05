@@ -21,9 +21,9 @@
         <img v-if="imageUrl" :src="imageUrl" class="avatar" />
         <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
       </el-upload>
-      <InputControl v-model="userName" title="userName" />
+      <InputControl v-model="userName" title="userName" @keydown.enter="submit" />
       <el-tooltip effect="light" content="6-12位" placement="right">
-        <InputControl v-model="passWord" title="passWord" type="password" />
+        <InputControl v-model="passWord" title="passWord" type="password" @keydown.enter="submit" />
       </el-tooltip>
       <CommonButton class="button" :name="isLogin ? 'LOGIN' : 'SIGN UP'" @click="submit" />
     </el-card>
@@ -34,25 +34,50 @@
 import { Plus } from '@element-plus/icons-vue'
 import type { UploadProps } from 'element-plus'
 
-import { reqSignup } from '~/network/user'
+import { reqLogin, reqSignup } from '~/network/user'
+type ReqLoginRes = {
+  code: number
+  msg: string
+  userName: string
+  userId: string
+  avatar: string
+  token: string
+}
+type ReqSignupRes = Pick<ReqLoginRes, 'code' | 'msg'>
 const userName = ref<string>('')
 const passWord = ref<string>('')
 const isLogin = ref<boolean>(true)
 const imageUrl = ref('')
 const imageFile = ref<File>()
-// const { userName } = useStore('user')
+const { userInfo, token } = useStore('user')
 const { $message } = useUtils()
 const socket = useSocket()
 const router = useRouter()
-const login = () => {}
+const login = async () => {
+  const res: ReqLoginRes = await reqLogin({
+    userName: userName.value,
+    passWord: passWord.value,
+  })
+  if (res.code === 200) {
+    userInfo.value = {
+      userId: res.userId,
+      name: res.userName,
+      avatar: res.avatar,
+    }
+    token.value = res.token
+    socket.auth = { token: token.value }
+    await router.push('/')
+    socket.connect()
+  }
+}
 const signup = async () => {
   const formData = new FormData()
   formData.append('userName', userName.value)
   formData.append('passWord', passWord.value)
   formData.append('avatar', imageFile.value!)
-  const res = await reqSignup(formData)
-  $message(res, res === 200 ? 'success' : 'error')
-  res === 200 && (isLogin.value = true)
+  const res: ReqSignupRes = await reqSignup(formData)
+  $message(res.msg, res.code === 200 ? 'success' : 'error')
+  res.code === 200 && (isLogin.value = true)
 }
 const submit = async () => {
   if (!userName.value || !passWord.value) {
@@ -65,12 +90,9 @@ const submit = async () => {
   }
   if (!/^\w{6,12}$/g.test(passWord.value)) {
     $message('请输入数字、字母、下划线6-12位密码 !', 'error')
+    return
   }
   isLogin.value ? login() : signup()
-  // userName.value = value.value
-  // socket.auth = { userName: value.value }
-  // await router.push('/')
-  // socket.connect()
 }
 const uploadChange: UploadProps['onChange'] = (file, files) => {
   if (file.raw?.type !== 'image/jpeg') {
