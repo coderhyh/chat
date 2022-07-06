@@ -4,7 +4,7 @@
       :class="{ avatar: true, animate__animated: true, animate__shakeX: pai_yi_pai_flag }"
       shape="square"
       :size="45"
-      :src="avatarUrl"
+      :src="item.avatar"
       tabindex="-1"
       @contextmenu="contextMenuFlag = true"
       @blur="contextMenuBlur"
@@ -37,7 +37,6 @@
 <script lang="ts" setup>
 const { userInfo, friendTargets } = useStore('user')
 const socket = useSocket()
-const avatarUrl = 'https://www.coderhyh.top/logo.png'
 const props = defineProps<{
   item: FriendListMsg
   previewList: string[] | undefined

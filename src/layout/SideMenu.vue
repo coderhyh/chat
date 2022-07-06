@@ -1,6 +1,6 @@
 <template>
   <div class="SideMenu">
-    <el-avatar shape="square" :size="42" src="https://www.coderhyh.top/logo.png" />
+    <el-avatar shape="square" :size="42" :src="userInfo.avatar" />
     <el-menu
       active-text-color="#07C160"
       background-color="#2e2e2e"
@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 const route = useRoute()
+const { userInfo } = useStore('user')
 type Menu = {
   icon: string
   name: string

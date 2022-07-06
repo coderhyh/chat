@@ -9,6 +9,7 @@ declare module '*.vue' {
 
 interface ImportMetaEnv {
   readonly VITE_SOCKET_BASE_URL: string
+  readonly VITE_WX_BASE_URL: string
 }
 
 declare module 'echarts-gl/components' {

@@ -21,6 +21,7 @@
 }
 * {
   box-sizing: border-box;
+  outline: 0;
 }
 html {
   /* 滚动事件发生在 html 元素上；JS 中可以监听 html 的滚动 */

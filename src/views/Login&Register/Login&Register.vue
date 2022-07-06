@@ -61,14 +61,15 @@ const login = async () => {
   if (res.code === 200) {
     userInfo.value = {
       userId: res.userId,
-      name: res.userName,
+      userName: res.userName,
       avatar: res.avatar,
     }
     token.value = res.token
     socket.auth = { token: token.value }
+    $message(res.msg, 'success')
     await router.push('/')
     socket.connect()
-  }
+  } else $message(res.msg, 'error')
 }
 const signup = async () => {
   const formData = new FormData()

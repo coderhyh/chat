@@ -9,6 +9,7 @@ declare interface FriendListMsg {
   msg: string
   date: string
   type: 'image' | 'text' | 'inform'
+  avatar?: string
   isMe?: boolean
   name?: string
   userId?: string

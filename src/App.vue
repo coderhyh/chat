@@ -17,7 +17,7 @@ import findMePromptMp3 from '~/assets/other/piaopiao@.mp3'
 import promptMp3 from '~/assets/other/piaopiao2.0.mp3'
 import echarts from '~/common/initEcharts'
 
-const { token, getUserInfo } = useStore('user')
+const { token, getUserInfo, userInfo } = useStore('user')
 const socket = useSocket()
 const newMsgVoice = ref<HTMLAudioElement>()
 const audioUrl = ref<string>(promptMp3)
@@ -44,12 +44,13 @@ socket.on('userList', (_userList) => {
 // 右键头像 功能
 const pai_yi_pai_flag = ref<boolean>(false)
 socket.on('contextmenu_avatar', (type, options) => {
+  const { userId } = userInfo.value
   if (type === '@AITE_NAME') {
     audioUrl.value = findMePromptMp3
     setTimeout(() => {
       audioUrl.value = promptMp3
     }, 4000)
-  } else if (type === 'PAI_YI_PAI' && socket.id === options?.receiveId) changePai_yi_pai_flag()
+  } else if (type === 'PAI_YI_PAI' && userId === options?.receiveId) changePai_yi_pai_flag()
 })
 const changePai_yi_pai_flag = () => {
   pai_yi_pai_flag.value = true

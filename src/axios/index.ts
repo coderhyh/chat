@@ -6,7 +6,7 @@ import NProgress from 'nprogress'
 
 export function request(config: AxiosRequestConfig) {
   const instance = axios.create({
-    baseURL: '/wx',
+    baseURL: import.meta.env.VITE_WX_BASE_URL,
     timeout: 60000,
   })
 

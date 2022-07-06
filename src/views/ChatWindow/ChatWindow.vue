@@ -23,6 +23,7 @@ import moment from 'moment'
 
 import ChatNavBar from './children/ChatNavBar.vue'
 import InputBox from './children/InputBox.vue'
+const { userInfo } = useStore('user')
 const socket = useSocket()
 const curFriendItem = inject<FriendList>('curFriendItem')
 const scrollbar = ref<InstanceType<typeof ElScrollbar>>()
@@ -36,14 +37,14 @@ watch(() => curFriendItem?.list, scrollDown, { deep: true, immediate: true })
 
 socket.on('contextmenu_avatar', (_, options) => {
   if (options?.type !== 'PAI_YI_PAI') return
-  const isReceive = socket.id === options?.receiveId // 接收
-  const isLaunch = socket.id === options?.launchId // 发起
-  console.log(isReceive, isLaunch)
+  const { userId } = userInfo.value
+  const isReceive = userId === options?.receiveId // 接收
+  const isLaunch = userId === options?.launchId // 发起
 
   let msg: string
   const nowDate = moment().format('YYYY-MM-DD HH:mm:ss')
   if (isReceive) msg = `${options.launchName} 拍了拍我`
-  else if (isLaunch) msg = `我拍了拍 ${options.launchName}`
+  else if (isLaunch) msg = `我拍了拍 ${options.receiveName}`
   else msg = `${options?.launchName} 拍了拍 ${options?.receiveName}`
   curFriendItem?.list.push({
     type: 'inform',

@@ -80,6 +80,7 @@ const sendData = ({ msg, type }: SendDataType) => {
     isMe: true,
     date: nowDate,
     type,
+    avatar: userInfo.value.avatar,
     userId: userInfo.value.userId,
   }
   let aiteTargets = undefined
