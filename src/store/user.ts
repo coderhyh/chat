@@ -1,5 +1,8 @@
-const userList = [{ name: '群聊', avatar: '', userId: 'all', list: [] }]
+import { AxiosPromise } from 'axios'
 
+import { userInfo } from '~/network/user'
+
+const userList = [{ name: '群聊', avatar: '', userId: 'all', list: [] }]
 export default defineStore({
   id: 'user',
   persist: {
@@ -8,12 +11,18 @@ export default defineStore({
     strategies: [{ storage: localStorage, paths: ['userName', 'userList', 'token'] }],
   },
   state: () => ({
-    userInfo: { name: '', userId: '', avatar: '' },
+    userInfo: { userName: '', userId: '', avatar: '' },
     token: '',
     userList: <FriendList[]>userList,
     friendTargets: <User.FriendTargets[]>[], // @ 功能
     userCount: 0,
   }),
   getters: {},
-  actions: {},
+  actions: {
+    async getUserInfo() {
+      type Info = typeof this.userInfo
+      const info: Info = await userInfo(this.token)
+      this.userInfo = info
+    },
+  },
 })

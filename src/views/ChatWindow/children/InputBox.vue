@@ -76,11 +76,11 @@ const sendData = ({ msg, type }: SendDataType) => {
   const nowDate = moment().format('YYYY-MM-DD HH:mm:ss')
   const sendData: FriendListMsg = {
     msg,
-    name: userInfo.value.name,
+    name: userInfo.value.userName,
     isMe: true,
     date: nowDate,
     type,
-    userId: socket.id,
+    userId: userInfo.value.userId,
   }
   let aiteTargets = undefined
   // 过滤 @

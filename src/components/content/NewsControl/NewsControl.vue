@@ -61,8 +61,8 @@ const pai_yi_pai = () => {
     type: 'PAI_YI_PAI',
     receiveId: props.item.userId as string,
     receiveName: props.item.name as string,
-    launchName: userInfo.value.name,
-    launchId: socket.id,
+    launchName: userInfo.value.userName,
+    launchId: userInfo.value.userId,
   })
   changePai_yi_pai_flag()
 }

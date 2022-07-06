@@ -16,7 +16,8 @@ import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 import findMePromptMp3 from '~/assets/other/piaopiao@.mp3'
 import promptMp3 from '~/assets/other/piaopiao2.0.mp3'
 import echarts from '~/common/initEcharts'
-const { token, userInfo, userList } = useStore('user')
+
+const { token, getUserInfo } = useStore('user')
 const socket = useSocket()
 const newMsgVoice = ref<HTMLAudioElement>()
 const audioUrl = ref<string>(promptMp3)
@@ -27,6 +28,7 @@ onMounted(() => {
 })
 
 if (token.value) {
+  getUserInfo()
   socket.auth = { token: token.value }
   socket.connect()
 }
