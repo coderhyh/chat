@@ -1,7 +1,7 @@
 <template>
   <div class="ChatWindow">
     <ChatNavBar />
-    <div class="main">
+    <div v-loading="false" element-loading-background="#F5F5F5" class="main">
       <el-scrollbar ref="scrollbar" height="329px">
         <template v-for="item in curFriendItem?.list" :key="item.userId">
           <NewsControl
@@ -34,6 +34,17 @@ const scrollDown = async () => {
   scrollbar.value?.setScrollTop(h)
 }
 watch(() => curFriendItem?.list, scrollDown, { deep: true, immediate: true })
+
+socket.on('userConnected', (_, { status, userName }) => {
+  console.log(11)
+
+  const date = moment().format('YYYY-MM-DD HH:mm:ss')
+  curFriendItem?.list.push({
+    type: 'inform',
+    date,
+    msg: `${userName} ${status === 'connect' ? '进入' : '离开'}了群聊 ${date}`,
+  })
+})
 
 socket.on('contextmenu_avatar', (_, options) => {
   if (options?.type !== 'PAI_YI_PAI') return

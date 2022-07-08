@@ -2,7 +2,10 @@ import { io, Socket } from 'socket.io-client'
 
 interface ServerToClientEvents {
   connectSuccess: (val: string) => void
-  userCount: (userCount: number) => void
+  userConnected: (
+    userCount: number,
+    userName: { status: 'connect' | 'break'; userName: string }
+  ) => void
   sendMsg: (sendData: FriendListMsg) => void
   userList: (userList: UserList[]) => void
   contextmenu_avatar: (msg: '@AITE_NAME' | 'PAI_YI_PAI', options?: contextmenu_avatar_type) => void
@@ -30,7 +33,7 @@ socket?.on('connect', () => {
   socket?.on('connectSuccess', (e: string) => {
     console.log(e)
   })
-  socket.on('userCount', async (count: number) => {
+  socket.on('userConnected', async (count: number) => {
     useStore('user').userCount.value = count
   })
   socket.onAny((event, ...args) => {
