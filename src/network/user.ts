@@ -1,4 +1,4 @@
-import { AxiosPromise } from 'axios'
+import { AxiosResponse } from 'axios'
 
 import { request } from '~/axios/index'
 
@@ -19,6 +19,17 @@ export const reqLogin: Login = (data) => {
     data,
   })
 }
+// type res<T> = Promise<AxiosResponse<T>['data']>
+
+// type Login = (data: { userName: string; passWord: string }) => res<{ name: '11' }>
+// export const reqLogin: Login = (data) => {
+//   return request({
+//     url: '/api/login',
+//     method: 'post',
+//     data,
+//   }) as unknown as res<{ name: '11' }>
+// }
+// reqLogin({ userName: '1', passWord: '2' }).then((res) => res.name)
 
 export const userInfo = (token: string): Promise<any> => {
   return request({
