@@ -1,6 +1,6 @@
 <template>
   <div class="FriendItem">
-    <el-avatar shape="square" :size="40" :src="avatar || 'https://www.coderhyh.top/logo.png'" />
+    <el-avatar shape="square" :size="40" :src="avatar || defaultImg" />
     <section>
       <p class="name line1">{{ name }}</p>
       <div class="msg line1">{{ msg }}</div>
@@ -10,6 +10,7 @@
 </template>
 
 <script setup lang="ts">
+import defaultImg from '~/assets/imgs/logo.png'
 withDefaults(
   defineProps<{
     name: string

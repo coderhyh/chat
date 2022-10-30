@@ -94,6 +94,7 @@ const sendData = ({ msg, type }: SendDataType) => {
   }
   socket?.emit('sendMsg', sendData, aiteTargets)
   curFriendItem?.list.push(sendData)
+
   value.value = ''
   textarea.value?.focus()
 }

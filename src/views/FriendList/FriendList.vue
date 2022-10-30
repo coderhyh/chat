@@ -31,7 +31,7 @@ const { userList } = useStore('user')
 //   { name: '黄玉豪', avatar: '', userId: '3', list: [] },
 //   { name: '黄玉豪', avatar: '', userId: '4', list: [] },
 // ])
-const currentFriendId = ref<string>('all')
+const currentFriendId = ref<string>('groupChat')
 provide(
   'curFriendItem',
   userList.value.find((e) => e.userId === currentFriendId.value)

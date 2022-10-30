@@ -52,12 +52,12 @@ export default defineConfig({
     hmr: true,
     proxy: {
       '/socketIo': {
-        target: 'http://127.0.0.1:5000',
+        target: 'http://127.0.0.1:3001',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/socketIo/, ''),
       },
       '/wx': {
-        target: 'http://127.0.0.1:5000',
+        target: 'http://127.0.0.1:3001',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/wx/, ''),
       },

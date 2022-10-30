@@ -21,6 +21,7 @@ declare module '@vue/runtime-core' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     Graph: typeof import('./components/content/Echerts/Graph.vue')['default']
     Icon: typeof import('./components/common/Icon/Icon.vue')['default']
     InputControl: typeof import('./components/common/InputControl/InputControl.vue')['default']

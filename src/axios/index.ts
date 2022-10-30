@@ -14,7 +14,7 @@ export function request(config: AxiosRequestConfig) {
     headers?: any
   }
   instance.interceptors.request.use(
-    (config: reqConfig): AxiosRequestConfig => {
+    (config: reqConfig) => {
       NProgress.start()
       config.headers.token = '123'
       return config
