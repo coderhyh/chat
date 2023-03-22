@@ -51,13 +51,8 @@ export default defineConfig({
     base: './ ', //生产环境路径
     hmr: true,
     proxy: {
-      '/socketIo': {
-        target: 'http://127.0.0.1:3001',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/socketIo/, ''),
-      },
       '/wx': {
-        target: 'http://127.0.0.1:3001',
+        target: 'http://127.0.0.1:8080',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/wx/, ''),
       },

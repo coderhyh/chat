@@ -8,7 +8,7 @@ export default defineStore({
   persist: {
     // 开启持久化
     enabled: true,
-    strategies: [{ storage: localStorage, paths: ['userName', 'userList', 'token'] }],
+    strategies: [{ storage: localStorage, paths: ['userList', 'token'] }],
   },
   state: () => ({
     userInfo: { userName: '', userId: '', avatar: '' },

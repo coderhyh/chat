@@ -31,6 +31,10 @@ const { userList } = useStore('user')
 //   { name: '黄玉豪', avatar: '', userId: '3', list: [] },
 //   { name: '黄玉豪', avatar: '', userId: '4', list: [] },
 // ])
+const len = userList.value.length
+if (len > 100) {
+  userList.value = userList.value.slice(len - 100)
+}
 const currentFriendId = ref<string>('groupChat')
 provide(
   'curFriendItem',
